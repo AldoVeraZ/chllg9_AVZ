@@ -95,6 +95,10 @@ h1 > strong {
   background: url("../img/peach.png");
 }
 
+#toad {
+  background: url("../img/toad.png");
+}
+
 #yoshi {
   background: url("../img/yoshi.png");
 }
@@ -105,4 +109,32 @@ h1 > strong {
 
 #daisy {
   background: url("../img/daisy.png");
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#botonPresentar {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 25px;
+  width: 100px;
+  font-size: 20px;
+  background-color: #4caf50; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+}
+
+#botonPresentar:hover {
+  background-color: #45a049; /* Cambia el color de fondo al pasar el cursor */
+}
+
+#botonPresentar:active {
+  transform: translateY(2px); /* Efecto de hundimiento al ser presionado */
 }
