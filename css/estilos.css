@@ -117,22 +117,35 @@ h1 > strong {
   align-items: center;
 }
 #botonPresentar {
+  position: relative;
   display: inline-block;
   margin-top: 10px;
-  padding: 10px 25px;
+
+  padding: 3.5px 5.3rem 3.5px 1rem;
   width: 100px;
   font-size: 20px;
-  background-color: #4caf50; /* Color de fondo del botón */
-  color: #fff; /* Color del texto del botón */
+  background-color: #9a0007; /* Color de fondo del botón */
+
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 7px hsla(0, 50%, 50%, 1);
+  font-style: italic;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  text-align: center;
 }
 
 #botonPresentar:hover {
-  background-color: #45a049; /* Cambia el color de fondo al pasar el cursor */
+  background-color: #87fa65; /* Cambia el color de fondo al pasar el cursor */
+  color: #9a0007;
+
+  border: solid 3px #5ea745;
+  box-shadow: 0 0 100px #fff75a; /* Add box shadow */
 }
 
 #botonPresentar:active {

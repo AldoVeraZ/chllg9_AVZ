@@ -1,58 +1,104 @@
 console.log(`-----Punto 1-------`);
-/* Pedir al usuario que escriba el nombre del personaje */
-let characterUser = prompt(
-  `¿Quién se presenta hoy? (Mario, Luigi, Bowser, Peach, Yoshi, Toad, Toadette, Daisy)`
-);
 
-/* mostrar la respuesta del usuario en consola */
-console.log(`Respuesta del usuario: `, characterUser);
+/* Obtener el elemento del botón */
+const botonPresentar = document.getElementById("botonPresentar");
 
-console.log(`-----Punto 2-------`);
-/* Objeto con los nombres completos de los personajes */
-const characterNames = {
-  Mario: "Mario",
-  Luigi: "Luigi",
-  Bowser: "Bowser Morton Koopa",
-  Peach: "Princesa Peach Toadstool",
-  Yoshi: "T. Yoshisaur Munchakoopas",
-  Toad: "Toad",
-  Toadette: "Toadette",
-  Daisy: "Princesa Daisy",
-};
+/* Variable para mantener el último personaje visible */
+let personajeVisible = null;
 
-/* obtener el nombre completo del personaje ingresado por el usuario */
-const fullName = characterNames[characterUser] || "(desconocido)";
+/* Añadir un evento click al botón */
+botonPresentar.addEventListener("click", () => {
+  /* Pedir al usuario que escriba el nombre del personaje */
+  let characterUser = prompt(
+    `¿Quién se presenta hoy? (Mario, Luigi, Bowser, Peach, Yoshi, Toad, Toadette, Daisy)`
+  );
 
-/* Mostrar la respuesta del usuario en consola */
-console.log(`Respuesta del usuario: `, fullName);
+  /* mostrar la respuesta del usuario en consola */
+  console.log(`Respuesta del usuario: `, characterUser);
 
-/* Obtener el elemento <span> dentro del <h1> */
-const spanElement = document.querySelector("h1 span");
+  console.log(`-----Punto 2-------`);
+  /* Objeto con los nombres completos de los personajes */
+  const characterNames = {
+    Mario: "Mario",
+    Luigi: "Luigi",
+    Bowser: "Bowser Morton Koopa",
+    Peach: "Princesa Peach Toadstool",
+    Yoshi: "T. Yoshisaur Munchakoopas",
+    Toad: "Toad",
+    Toadette: "Toadette",
+    Daisy: "Princesa Daisy",
+  };
 
-/* Rellenar el <span> con el nombre completo del personaje */
-spanElement.textContent = fullName;
+  /* obtener el nombre completo del personaje ingresado por el usuario */
+  const fullName = characterNames[characterUser] || "(desconocido)";
 
-/* Obtener el elemento <h1> y actualizar el texto completo */
-const h1Element = document.querySelector("h1");
-h1Element.textContent = `Hoy se presenta ${fullName} `;
+  /* Mostrar la respuesta del usuario en consola */
+  console.log(`Respuesta del usuario: `, fullName);
 
-console.log(`-----Punto 3-------`);
-/* Verificar si el personaje ingresado por el usuario es válido */
-if (characterNames.hasOwnProperty(characterUser)) {
-  console.log(`Personaje válido: `, characterUser);
+  console.log(`-----Punto 3-------`);
+  /* Verificar si el personaje ingresado por el usuario es válido */
+  if (characterNames.hasOwnProperty(characterUser)) {
+    console.log(`Personaje válido: `, characterUser);
 
-  /* Obtener el elemento HTML correspondiente al personaje en minúsculas */
-  const elementId = characterUser.toLowerCase();
-  const characterElement = document.getElementById(elementId);
+    /* Ocultar el último personaje visible, si existe */
+    if (personajeVisible) {
+      personajeVisible.removeAttribute("title");
+    }
 
-  /* Verificar si se encontró el elemento y establecer el atributo title */
-  if (characterElement) {
-    console.log(`Elemento encontrado: `, characterElement);
-    characterElement.setAttribute("title", "Presentado");
-    console.log(`Atributo title establecido en "Presentado"`);
+    /* Obtener el elemento HTML correspondiente al personaje en minúsculas */
+    const elementId = characterUser.toLowerCase();
+    const characterElement = document.getElementById(elementId);
+
+    /* Verificar si se encontró el elemento y establecer el atributo title */
+    if (characterElement) {
+      console.log(`Elemento encontrado: `, characterElement);
+
+      // Alternar la visibilidad del personaje en el recuadro
+      if (characterElement.hasAttribute("title")) {
+        characterElement.removeAttribute("title");
+      } else {
+        characterElement.setAttribute("title", "Presentado");
+        personajeVisible = characterElement;
+      }
+
+      console.log(`Visibilidad del personaje alternada`);
+    } else {
+      console.log(`Elemento no encontrado para el personaje: `, characterUser);
+    }
   } else {
-    console.log(`Elemento no encontrado para el personaje: `, characterUser);
+    console.log(`Personaje no válido: `, characterUser);
+
+    /* Si el personaje no es válido, mantener visible el último personaje */
+    if (personajeVisible) {
+      personajeVisible.setAttribute("title", "Presentado");
+    }
   }
-} else {
-  console.log(`Personaje no válido: `, characterUser);
+});
+
+/* Añadir evento click a cada recuadro */
+const cajas = document.getElementById("cajas").children;
+
+for (const caja of cajas) {
+  caja.addEventListener("click", () => {
+    // Obtener el id del recuadro clickeado
+    const elementId = caja.id;
+
+    // Obtener el elemento correspondiente al recuadro
+    const characterElement = document.getElementById(elementId);
+
+    // Alternar la visibilidad del personaje en el recuadro
+    if (characterElement.hasAttribute("title")) {
+      characterElement.removeAttribute("title");
+    } else {
+      characterElement.setAttribute("title", "Presentado");
+
+      // Ocultar el último personaje visible, si existe
+      if (personajeVisible && personajeVisible !== characterElement) {
+        personajeVisible.removeAttribute("title");
+      }
+
+      // Actualizar el personajeVisible
+      personajeVisible = characterElement;
+    }
+  });
 }
